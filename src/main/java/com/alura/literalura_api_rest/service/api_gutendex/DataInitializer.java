@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -52,8 +50,8 @@ public class DataInitializer implements CommandLineRunner {
         return result;
     }
 
-    public List<Author> saveAuthor(List<BookDataGutendex> bookDataGutendexList) {
-        var authorFound = new ArrayList<Author>();
+    public Map<String, Author> saveAuthor(List<BookDataGutendex> bookDataGutendexList) {
+        Map<String, Author> authorFound = new HashMap<>();
 
         for (BookDataGutendex bookAPI : bookDataGutendexList) {
             if (bookAPI.authorList() != null && !bookAPI.authorList().isEmpty()) {
@@ -63,22 +61,22 @@ public class DataInitializer implements CommandLineRunner {
                 Optional<Author> existingAuthor = authorRepository.findByCompleteName(authorAPI.completeName());
 
                 if (existingAuthor.isPresent()) {
-                    authorFound.add(existingAuthor.get());
+                    authorFound.put(existingAuthor.get().getCompleteName(),existingAuthor.get());
                 } else {
                     Author otherAuthor = new Author(authorAPI);
                     authorRepository.save(otherAuthor); // Guarda al author
-                    authorFound.add(otherAuthor);
+                    authorFound.put(otherAuthor.getCompleteName(),otherAuthor);
                 }
             }
         }
         return authorFound;
     }
 
-    public List<Book> saveBook(List<BookDataGutendex> bookDataGutendexList, List<Author> authorList){
+    public List<Book> saveBook(List<BookDataGutendex> bookDataGutendexList, Map<String, Author> authorMap){
         var bookList = new ArrayList<Book>();
 
         if (bookDataGutendexList != null && !bookDataGutendexList.isEmpty() &&
-                authorList != null && !authorList.isEmpty()) {
+                authorMap != null && !authorMap.isEmpty()) {
 
             for (BookDataGutendex bookAPI : bookDataGutendexList) {
 
@@ -88,7 +86,7 @@ public class DataInitializer implements CommandLineRunner {
                     bookList.add(existingBook.get()); // Si existe, toma los datos.
                 } else {
                     Book otherBook = new Book(bookAPI);
-                    otherBook.setAuthor(authorList.get(0));
+                    otherBook.setAuthor(authorMap.get(0));
                     bookRepository.save(otherBook); // Sino, guarda el nuevo libro.
                     bookList.add(otherBook);
                 }
