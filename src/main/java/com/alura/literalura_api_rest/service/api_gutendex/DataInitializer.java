@@ -1,14 +1,22 @@
 package com.alura.literalura_api_rest.service.api_gutendex;
 
+import com.alura.literalura_api_rest.author.Author;
+import com.alura.literalura_api_rest.author.AuthorDataGutendex;
 import com.alura.literalura_api_rest.author.IAuthorRepository;
+import com.alura.literalura_api_rest.book.Book;
+import com.alura.literalura_api_rest.book.BookDataGutendex;
 import com.alura.literalura_api_rest.book.IBookRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class APIConsumptionMethods {
+@Component
+public class DataInitializer implements CommandLineRunner {
     private APIConsumption consumingAPI = new APIConsumption();
     private ConvertsData converter = new ConvertsData();
     private final String URL_BASE = "https://gutendex.com/books/?page=";
@@ -19,22 +27,22 @@ public class APIConsumptionMethods {
     private IAuthorRepository authorRepository;
 
     // Métodos para el consumo de la API.
-    public List<GeneralData> ConsumingAPI(String urlBase, Integer numPage) {
-        List<GeneralData> data = new ArrayList<>();
+    public List<GeneralDataGutendex> ConsumingAPI(String urlBase, Integer numPage) {
+        List<GeneralDataGutendex> data = new ArrayList<>();
 
         for (int i = 1; i <= numPage ; i++) {
             var json = consumingAPI.getData(urlBase + i);
-            var dataAPI = converter.getData(json, GeneralData.class);
+            var dataAPI = converter.getData(json, GeneralDataGutendex.class);
             data.add(dataAPI);
         }
 
         return data;
     }
 
-    public List<BookData> resultOfConsumingAPI (List<GeneralData> data){
-        List<BookData> result = new ArrayList<>();
+    public List<BookDataGutendex> resultOfConsumingAPI (List<GeneralDataGutendex> data){
+        List<BookDataGutendex> result = new ArrayList<>();
 
-        for(GeneralData dataOk : data){
+        for(GeneralDataGutendex dataOk : data){
 
             // Siempre verifica primero que las listas no estén vacías o null.
             if (dataOk.booksList() != null && !dataOk.booksList().isEmpty()) {
@@ -44,12 +52,12 @@ public class APIConsumptionMethods {
         return result;
     }
 
-    public List<Author> saveAuthor(List<BookData> bookDataList) {
+    public List<Author> saveAuthor(List<BookDataGutendex> bookDataGutendexList) {
         var authorFound = new ArrayList<Author>();
 
-        for (BookData bookAPI : bookDataList) {
+        for (BookDataGutendex bookAPI : bookDataGutendexList) {
             if (bookAPI.authorList() != null && !bookAPI.authorList().isEmpty()) {
-                AuthorData authorAPI = bookAPI.authorList().get(0);
+                AuthorDataGutendex authorAPI = bookAPI.authorList().get(0);
 
                 // Verifica si ya existe en la base de datos o hay que agregarlo.
                 Optional<Author> existingAuthor = authorRepository.findByCompleteName(authorAPI.completeName());
@@ -66,13 +74,13 @@ public class APIConsumptionMethods {
         return authorFound;
     }
 
-    public List<Book> saveBook(List<BookData> bookDataList, List<Author> authorList){
+    public List<Book> saveBook(List<BookDataGutendex> bookDataGutendexList, List<Author> authorList){
         var bookList = new ArrayList<Book>();
 
-        if (bookDataList != null && !bookDataList.isEmpty() &&
+        if (bookDataGutendexList != null && !bookDataGutendexList.isEmpty() &&
                 authorList != null && !authorList.isEmpty()) {
 
-            for (BookData bookAPI : bookDataList) {
+            for (BookDataGutendex bookAPI : bookDataGutendexList) {
 
                 Optional<Book> existingBook = bookRepository.findByTitleEqualsIgnoreCase(bookAPI.title());
 
@@ -97,4 +105,11 @@ public class APIConsumptionMethods {
         var authors = saveAuthor(resultAPI);
         var books = saveBook(resultAPI,authors);
     }
+
+    @Override
+    @Transactional
+    public void run(String... args) throws Exception {
+        createDataBase();
+    }
 }
+
