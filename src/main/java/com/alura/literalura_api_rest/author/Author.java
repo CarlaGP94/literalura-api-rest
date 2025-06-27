@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Author")
-@Table(name = "authors")
+@Table(name = "author")
 
 @Getter
 @NoArgsConstructor
