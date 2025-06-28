@@ -86,9 +86,17 @@ public class DataInitializer implements CommandLineRunner {
                     bookList.add(existingBook.get()); // Si existe, toma los datos.
                 } else {
                     Book otherBook = new Book(bookAPI);
-                    otherBook.setAuthor(authorMap.get(0));
-                    bookRepository.save(otherBook); // Sino, guarda el nuevo libro.
-                    bookList.add(otherBook);
+
+                    if(bookAPI.authorList() != null && !bookAPI.authorList().isEmpty()){
+                        var name = bookAPI.authorList().get(0).completeName(); // Toma el nombre del autor.
+                        var nameAuthor = authorMap.get(name); // Crea al autor.
+                        otherBook.setAuthor(nameAuthor); // Lo asocia al libro.
+                        bookRepository.save(otherBook); // Guarda el nuevo libro.
+                        bookList.add(otherBook);
+                    }
+
+
+
                 }
             }
         }
