@@ -3,12 +3,13 @@ package com.alura.literalura_api_rest.controller;
 import com.alura.literalura_api_rest.book.Book;
 import com.alura.literalura_api_rest.book.BookDetail;
 import com.alura.literalura_api_rest.book.IBookRepository;
+import com.alura.literalura_api_rest.book.Language;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    IBookRepository bookRepository;
+    private IBookRepository bookRepository;
 
     @GetMapping("/search")
     private ResponseEntity<List<BookDetail>> findBookByTitle(@RequestParam String booksTitle) {
@@ -30,27 +31,24 @@ public class BookController {
 
         return ResponseEntity.ok(bookDetail);
     }
-}
 
-//    private void registeredBook() {
-//        List<Book> savedBooks = bookRepository.findAll();
-//        savedBooks.forEach(System.out::println);
-//    }
-//
-//    private void registeredBookByLanguage() {
-//        System.out.println("Ingrese el idioma para la búsqueda:\n" +
-//                "\"en\" para libros en inglés." +
-//                "\n\"es\" para libros en español." +
-//                "\n\"fr\" para libros en francés.");
-//
-//        var userLanguage = keyboard.nextLine();
-//
-//        var userLanguageInput = Language.fromString(userLanguage);
-//
-//        List<Book> foundBookLanguage = bookRepository.registeredBookByLanguage(userLanguageInput);
-//
-//        System.out.println("Filtrando libros por idioma...\n");
-//        foundBookLanguage.forEach(System.out::println);
-//    }
-//}
+    @GetMapping
+    private ResponseEntity<Page<BookDetail>> showAllBooks(@PageableDefault(size = 10) Pageable paginacion) {
+
+        var allBooks = bookRepository.findAll(paginacion)
+                .map(BookDetail::new);
+
+        return ResponseEntity.ok(allBooks);
+    }
+
+    @GetMapping("/language")
+    private ResponseEntity<Page<BookDetail>> showBooksByLanguage(@PageableDefault(size = 10, sort = {"title"}) Pageable paginacion,
+                                               @RequestParam Language language){
+
+        var books = bookRepository.findByLanguage(paginacion, language)
+                .map(BookDetail::new);
+
+        return ResponseEntity.ok(books);
+    }
+}
 
