@@ -1,9 +1,10 @@
-package com.alura.literalura_api_rest.book;
+package com.alura.literalura_api_rest.repository;
 
+import com.alura.literalura_api_rest.model.Book;
+import com.alura.literalura_api_rest.model.Language;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.web.PageableDefault;
 
 import java.util.List;
 import java.util.Optional;

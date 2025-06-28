@@ -1,4 +1,4 @@
-package com.alura.literalura_api_rest.service.api_gutendex;
+package com.alura.literalura_api_rest.external.api_gutendex;
 
 import java.io.IOException;
 import java.net.URI;
@@ -6,7 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class APIConsumption {
+public class GutendexClient {
 
     public String getData(String url) {
         HttpClient client = HttpClient.newHttpClient();

@@ -1,5 +1,6 @@
-package com.alura.literalura_api_rest.author;
+package com.alura.literalura_api_rest.repository;
 
+import com.alura.literalura_api_rest.model.Author;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,9 +1,9 @@
-package com.alura.literalura_api_rest.service.api_gutendex;
+package com.alura.literalura_api_rest.external.api_gutendex;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ConvertsData implements IConvertsData{
+public class GutendexConverter implements IGutendexConverter {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 

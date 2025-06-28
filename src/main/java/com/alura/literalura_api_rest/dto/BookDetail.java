@@ -1,6 +1,7 @@
-package com.alura.literalura_api_rest.book;
+package com.alura.literalura_api_rest.dto;
 
-import com.alura.literalura_api_rest.author.AuthorDetail;
+import com.alura.literalura_api_rest.model.Book;
+import com.alura.literalura_api_rest.model.Language;
 
 public record BookDetail(Long id,
                          String title,

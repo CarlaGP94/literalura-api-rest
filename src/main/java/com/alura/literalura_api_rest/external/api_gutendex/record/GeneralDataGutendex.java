@@ -1,6 +1,5 @@
-package com.alura.literalura_api_rest.service.api_gutendex;
+package com.alura.literalura_api_rest.external.api_gutendex.record;
 
-import com.alura.literalura_api_rest.book.BookDataGutendex;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

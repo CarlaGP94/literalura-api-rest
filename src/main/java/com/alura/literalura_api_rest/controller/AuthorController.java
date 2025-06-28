@@ -1,7 +1,8 @@
 package com.alura.literalura_api_rest.controller;
 
-import com.alura.literalura_api_rest.author.AuthorDetail;
-import com.alura.literalura_api_rest.author.IAuthorRepository;
+import com.alura.literalura_api_rest.dto.AuthorDetail;
+import com.alura.literalura_api_rest.repository.IAuthorRepository;
+import com.alura.literalura_api_rest.service.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,24 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthorController {
 
     @Autowired
-    private IAuthorRepository authorRepository;
+    private IAuthorService authorService;
 
     @GetMapping
-    private ResponseEntity<Page<AuthorDetail>> showAllAuthors(@PageableDefault(size = 10) Pageable paginacion) {
+    public ResponseEntity<Page<AuthorDetail>> showAllAuthors(@PageableDefault(size = 10) Pageable paginacion) {
 
-        var allAuthors = authorRepository.findAll(paginacion)
-                .map(AuthorDetail::new);
+        var allAuthors = authorService.showAllAuthors(paginacion);
 
         return ResponseEntity.ok(allAuthors);
     }
 
     @GetMapping("/active_in")
-    private ResponseEntity<Page<AuthorDetail>> showBooksByLanguage(@PageableDefault(size = 10, sort = {"completeName"}) Pageable paginacion,
+    public ResponseEntity<Page<AuthorDetail>> showBooksByLanguage(@PageableDefault(size = 10, sort = {"completeName"}) Pageable paginacion,
                                                                  @RequestParam String startYear,
                                                                    @RequestParam String endYear){
 
-        var authors = authorRepository.activeIn(paginacion, startYear, endYear)
-                .map(AuthorDetail::new);
+        var authors = authorService.showBooksByLanguage(paginacion, startYear, endYear);
 
         return ResponseEntity.ok(authors);
     }

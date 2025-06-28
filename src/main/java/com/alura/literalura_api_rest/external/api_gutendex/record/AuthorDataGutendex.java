@@ -1,4 +1,4 @@
-package com.alura.literalura_api_rest.author;
+package com.alura.literalura_api_rest.external.api_gutendex.record;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

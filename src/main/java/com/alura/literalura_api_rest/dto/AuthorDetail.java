@@ -1,4 +1,6 @@
-package com.alura.literalura_api_rest.author;
+package com.alura.literalura_api_rest.dto;
+
+import com.alura.literalura_api_rest.model.Author;
 
 public record AuthorDetail(
                             Long id,

@@ -1,11 +1,14 @@
-package com.alura.literalura_api_rest.service.api_gutendex;
+package com.alura.literalura_api_rest.service;
 
-import com.alura.literalura_api_rest.author.Author;
-import com.alura.literalura_api_rest.author.AuthorDataGutendex;
-import com.alura.literalura_api_rest.author.IAuthorRepository;
-import com.alura.literalura_api_rest.book.Book;
-import com.alura.literalura_api_rest.book.BookDataGutendex;
-import com.alura.literalura_api_rest.book.IBookRepository;
+import com.alura.literalura_api_rest.model.Author;
+import com.alura.literalura_api_rest.external.api_gutendex.record.AuthorDataGutendex;
+import com.alura.literalura_api_rest.repository.IAuthorRepository;
+import com.alura.literalura_api_rest.model.Book;
+import com.alura.literalura_api_rest.external.api_gutendex.record.BookDataGutendex;
+import com.alura.literalura_api_rest.repository.IBookRepository;
+import com.alura.literalura_api_rest.external.api_gutendex.GutendexClient;
+import com.alura.literalura_api_rest.external.api_gutendex.GutendexConverter;
+import com.alura.literalura_api_rest.external.api_gutendex.record.GeneralDataGutendex;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,8 +18,8 @@ import java.util.*;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
-    private APIConsumption consumingAPI = new APIConsumption();
-    private ConvertsData converter = new ConvertsData();
+    private GutendexClient consumingAPI = new GutendexClient();
+    private GutendexConverter converter = new GutendexConverter();
     private final String URL_BASE = "https://gutendex.com/books/?page=";
     private final Integer numPage = 10;
     @Autowired

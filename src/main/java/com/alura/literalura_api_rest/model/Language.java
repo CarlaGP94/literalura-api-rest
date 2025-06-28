@@ -1,4 +1,4 @@
-package com.alura.literalura_api_rest.book;
+package com.alura.literalura_api_rest.model;
 
 public enum Language {
 

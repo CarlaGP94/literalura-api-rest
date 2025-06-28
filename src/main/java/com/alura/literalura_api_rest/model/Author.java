@@ -1,6 +1,6 @@
-package com.alura.literalura_api_rest.author;
+package com.alura.literalura_api_rest.model;
 
-import com.alura.literalura_api_rest.book.Book;
+import com.alura.literalura_api_rest.external.api_gutendex.record.AuthorDataGutendex;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
