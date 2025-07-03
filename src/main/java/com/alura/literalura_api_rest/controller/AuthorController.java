@@ -22,7 +22,8 @@ public class AuthorController {
     private IAuthorService authorService;
 
     @GetMapping
-    public ResponseEntity<Page<AuthorDetail>> showAllAuthors(@PageableDefault(size = 10) Pageable paginacion) {
+    public ResponseEntity<Page<AuthorDetail>> showAllAuthors(
+            @PageableDefault(size = 10) Pageable paginacion) {
 
         var allAuthors = authorService.showAllAuthors(paginacion);
 

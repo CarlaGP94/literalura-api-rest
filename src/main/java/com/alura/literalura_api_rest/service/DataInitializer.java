@@ -21,7 +21,7 @@ public class DataInitializer implements CommandLineRunner {
     private GutendexClient consumingAPI = new GutendexClient();
     private GutendexConverter converter = new GutendexConverter();
     private final String URL_BASE = "https://gutendex.com/books/?page=";
-    private final Integer numPage = 10;
+    private final Integer numPage = 50;
     @Autowired
     private IBookRepository bookRepository;
     @Autowired
