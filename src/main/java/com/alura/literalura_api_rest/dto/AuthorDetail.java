@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record AuthorDetail(
                             Long id,
-                           @NotBlank String completeName,
+                           String completeName,
                            Integer birthYear,
                            Integer deathYear
 ) {

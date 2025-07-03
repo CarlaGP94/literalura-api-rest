@@ -4,6 +4,7 @@ import com.alura.literalura_api_rest.dto.BookDetail;
 import com.alura.literalura_api_rest.model.Language;
 import com.alura.literalura_api_rest.service.IBookService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,9 +22,9 @@ public class BookController {
     private IBookService bookService;
 
     @GetMapping("/search")
-    public ResponseEntity<List<BookDetail>> findBookByTitle(@RequestParam @Valid BookDetail booksTitle) {
+    public ResponseEntity<List<BookDetail>> findBookByTitle(@RequestParam @NotBlank String booksTitle) {
 
-        var bookDetail = bookService.findBookByTitle(booksTitle.title());
+        var bookDetail = bookService.findBookByTitle(booksTitle);
 
         return ResponseEntity.ok(bookDetail);
     }
@@ -39,9 +40,9 @@ public class BookController {
 
     @GetMapping("/language")
     public ResponseEntity<Page<BookDetail>> showBooksByLanguage(@PageableDefault(size = 10, sort = {"title"}) Pageable paginacion,
-                                               @RequestParam @Valid BookDetail language){
+                                               @RequestParam @NotBlank Language language){
 
-        var books = bookService.showBooksByLanguage(paginacion, language.language());
+        var books = bookService.showBooksByLanguage(paginacion, language);
 
         return ResponseEntity.ok(books);
     }
