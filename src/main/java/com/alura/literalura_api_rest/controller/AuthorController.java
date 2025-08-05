@@ -1,8 +1,7 @@
 package com.alura.literalura_api_rest.controller;
 
-import com.alura.literalura_api_rest.dto.AuthorDetail;
-import com.alura.literalura_api_rest.repository.IAuthorRepository;
-import com.alura.literalura_api_rest.service.IAuthorService;
+import com.alura.literalura_api_rest.domain.author.AuthorDetail;
+import com.alura.literalura_api_rest.domain.author.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

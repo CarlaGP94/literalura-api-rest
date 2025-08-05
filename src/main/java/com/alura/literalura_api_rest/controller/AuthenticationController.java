@@ -1,9 +1,9 @@
 package com.alura.literalura_api_rest.controller;
 
-import com.alura.literalura_api_rest.dto.AuthenticationDetail;
-import com.alura.literalura_api_rest.dto.TokenJWTDetail;
-import com.alura.literalura_api_rest.model.UserApp;
-import com.alura.literalura_api_rest.configuration.security.TokenService;
+import com.alura.literalura_api_rest.infra.security.AuthenticationDetail;
+import com.alura.literalura_api_rest.infra.security.TokenJWTDetail;
+import com.alura.literalura_api_rest.domain.user.UserApp;
+import com.alura.literalura_api_rest.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

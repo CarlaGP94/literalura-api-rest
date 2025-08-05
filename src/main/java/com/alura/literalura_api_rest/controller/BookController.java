@@ -1,9 +1,8 @@
 package com.alura.literalura_api_rest.controller;
 
-import com.alura.literalura_api_rest.dto.BookDetail;
-import com.alura.literalura_api_rest.model.Language;
-import com.alura.literalura_api_rest.service.IBookService;
-import jakarta.validation.Valid;
+import com.alura.literalura_api_rest.domain.book.BookDetail;
+import com.alura.literalura_api_rest.domain.book.Language;
+import com.alura.literalura_api_rest.domain.book.IBookService;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
