@@ -3,10 +3,7 @@ package com.alura.literalura_api_rest.domain.author;
 import com.alura.literalura_api_rest.domain.book.Book;
 import com.alura.literalura_api_rest.domain.external.api_gutendex.record.AuthorDataGutendex;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +11,7 @@ import java.util.List;
 @Entity(name = "Author")
 @Table(name = "author")
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

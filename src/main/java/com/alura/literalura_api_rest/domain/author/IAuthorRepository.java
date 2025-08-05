@@ -17,6 +17,6 @@ public interface IAuthorRepository extends JpaRepository<Author, Long> {
     @Query("SELECT a FROM Author a " +
             "WHERE a.birthYear IS NOT NULL AND a.birthYear <= :endYear " + // Nacido antes o durante el año final.
             "AND (a.deathYear IS NULL OR a.deathYear >= :startYear)") // Sigue vivo, o murió después o durante el año inicial.
-    Page<Author> activeIn(Pageable paginacion, String startYear, String endYear);
+    Page<Author> activeIn(Pageable paginacion, Integer startYear, Integer endYear);
 
 }

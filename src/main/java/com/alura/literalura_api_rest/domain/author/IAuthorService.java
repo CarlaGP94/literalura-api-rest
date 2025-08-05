@@ -7,5 +7,5 @@ public interface IAuthorService {
 
     Page<AuthorDetail> showAllAuthors(Pageable paginacion);
 
-    Page<AuthorDetail> showBooksByLanguage(Pageable paginacion, String startYear, String endYear);
+    Page<AuthorDetail> showBooksByLanguage(Pageable paginacion, Integer startYear, Integer endYear);
 }
