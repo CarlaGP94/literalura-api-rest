@@ -19,7 +19,7 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
-    public Page<AuthorDetail> showBooksByLanguage(Pageable paginacion, Integer startYear, Integer endYear){
+    public Page<AuthorDetail> showAuthorsByActiveIn(Pageable paginacion, Integer startYear, Integer endYear){
 
         return authorRepository.activeIn(paginacion, startYear, endYear)
                 .map(AuthorDetail::new);

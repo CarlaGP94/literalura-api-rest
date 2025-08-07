@@ -30,11 +30,11 @@ public class AuthorController {
     }
 
     @GetMapping("/active_in")
-    public ResponseEntity<Page<AuthorDetail>> showBooksByLanguage(@PageableDefault(size = 10, sort = {"completeName"}) Pageable paginacion,
+    public ResponseEntity<Page<AuthorDetail>> showBooksByActiveIn(@PageableDefault(size = 10, sort = {"completeName"}) Pageable paginacion,
                                                                  @RequestParam Integer startYear,
                                                                    @RequestParam Integer endYear){
 
-        var authors = authorService.showBooksByLanguage(paginacion, startYear, endYear);
+        var authors = authorService.showAuthorsByActiveIn(paginacion, startYear, endYear);
 
         return ResponseEntity.ok(authors);
     }

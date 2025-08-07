@@ -1,5 +1,7 @@
 package com.alura.literalura_api_rest.domain.book;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum Language {
 
     INGLES("en", "Inglés"),

@@ -4,6 +4,7 @@ import com.alura.literalura_api_rest.domain.book.BookDetail;
 import com.alura.literalura_api_rest.domain.book.Language;
 import com.alura.literalura_api_rest.domain.book.IBookService;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +40,7 @@ public class BookController {
 
     @GetMapping("/language")
     public ResponseEntity<Page<BookDetail>> showBooksByLanguage(@PageableDefault(size = 10, sort = {"title"}) Pageable paginacion,
-                                               @RequestParam @NotBlank Language language){
+                                               @RequestParam @NotNull Language language){
 
         var books = bookService.showBooksByLanguage(paginacion, language);
 

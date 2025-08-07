@@ -17,4 +17,5 @@ public record BookDetail(Long id,
                 book.getDownloadCount()
         );
     }
+    
 }

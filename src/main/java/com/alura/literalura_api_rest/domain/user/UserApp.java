@@ -23,6 +23,10 @@ public class UserApp implements UserDetails {
     private String login;
     private String password;
 
+    public UserApp(String login) {
+        this.login=login;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
